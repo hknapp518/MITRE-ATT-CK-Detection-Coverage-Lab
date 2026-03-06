@@ -135,3 +135,14 @@ resource vm 'Microsoft.Compute/virtualMachines@2023-03-01' = {
     }
   }
 }
+
+resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
+  name: 'soc-lab-law'
+  location: location
+  properties: {
+    sku: {
+      name: 'PerGB2018'
+    }
+    retentionInDays: 30
+  }
+}
