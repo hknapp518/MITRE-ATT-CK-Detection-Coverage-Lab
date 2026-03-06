@@ -146,3 +146,19 @@ resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
     retentionInDays: 30
   }
 }
+
+```bicep
+// Deploy Microsoft Sentinel attached to the Log Analytics Workspace
+resource sentinel 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' = {
+  name: 'SecurityInsights(${logAnalytics.name})'
+  location: location
+  plan: {
+    name: 'SecurityInsights(${logAnalytics.name})'
+    product: 'OMSGallery/SecurityInsights'
+    publisher: 'Microsoft'
+    promotionCode: ''
+  }
+  properties: {
+    workspaceResourceId: logAnalytics.id
+  }
+}
