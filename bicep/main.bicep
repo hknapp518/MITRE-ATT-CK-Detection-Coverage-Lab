@@ -162,3 +162,22 @@ resource sentinel 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' 
     workspaceResourceId: logAnalytics.id
   }
 }
+
+
+// Install Azure Monitor Agent (AMA) on the VM
+// Connects VM telemetry to Log Analytics Workspace / Sentinel
+
+resource vmExtension 'Microsoft.Compute/virtualMachines/extensions@2023-03-01' = {
+  name: '${vmName}/AzureMonitorAgent'
+  location: location
+  parent: vm
+  properties: {
+    publisher: 'Microsoft.Azure.Monitor'
+    type: 'AzureMonitorWindowsAgent'
+    typeHandlerVersion: '1.10'
+    autoUpgradeMinorVersion: true
+    settings: {
+      workspaceId: logAnalytics.customerId
+    }
+  }
+}
