@@ -17,3 +17,18 @@ The objective of this lab is to evaluate how effectively security monitoring too
 - Sysmon
 - MITRE ATT&CK Framework
 - Kali Linux
+
+## Architecture
+
+This lab simulates an enterprise detection pipeline where attacker activity is generated, telemetry is collected from Windows systems, and logs are analyzed in SIEM platforms to build detection rules mapped to the MITRE ATT&CK framework.
+
+Attack simulations are executed using Atomic Red Team against a Windows Active Directory environment. Endpoint telemetry is collected using Windows Event Logs and Sysmon and forwarded to SIEM platforms for analysis.
+
+The security monitoring pipeline includes:
+
+1. Attack Simulation (Atomic Red Team / Kali Linux)
+2. Windows Enterprise Environment (Active Directory + Endpoints)
+3. Telemetry Collection (Windows Security Logs + Sysmon)
+4. Log Ingestion into SIEM Platforms (Splunk and Microsoft Sentinel)
+5. Detection Engineering using SIEM queries
+6. MITRE ATT&CK Detection Coverage Analysis
