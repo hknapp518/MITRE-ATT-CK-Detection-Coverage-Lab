@@ -73,7 +73,7 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2023-05-01' = {
     name: 'Standard'
   }
   properties: {
-    publicIPAllocationMethod: 'Dynamic'
+    publicIPAllocationMethod: 'Static'
   }
 }
 
