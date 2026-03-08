@@ -175,9 +175,5 @@ resource vmExtension 'Microsoft.Compute/virtualMachines/extensions@2023-03-01' =
     publisher: 'Microsoft.Azure.Monitor'
     type: 'AzureMonitorWindowsAgent'
     typeHandlerVersion: '1.10'
-    autoUpgradeMinorVersion: true
-    settings: {
-      workspaceId: logAnalytics.customerId
-    }
-  }
+    autoUpgradeMinorVersion: true 
 }
