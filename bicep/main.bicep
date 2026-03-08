@@ -168,7 +168,7 @@ resource sentinel 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' 
 // Connects VM telemetry to Log Analytics Workspace / Sentinel
 
 resource vmExtension 'Microsoft.Compute/virtualMachines/extensions@2023-03-01' = {
-  name: '${vmName}/AzureMonitorAgent'
+  name: 'AzureMonitorAgent'
   location: location
   parent: vm
   properties: {
