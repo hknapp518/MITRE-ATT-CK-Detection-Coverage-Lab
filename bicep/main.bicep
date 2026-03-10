@@ -136,6 +136,20 @@ resource vm 'Microsoft.Compute/virtualMachines@2023-03-01' = {
   }
 }
 
+resource installSysmon 'Microsoft.Compute/virtualMachines/extensions@2023-03-01' = {
+  name: 'install-sysmon'
+  parent: vm
+  location: location
+  properties: {
+    publisher: 'Microsoft.Compute'
+    type: 'CustomScriptExtension'
+    typeHandlerVersion: '1.10'
+    autoUpgradeMinorVersion: true
+    settings: {
+      commandToExecute: 'powershell -ExecutionPolicy Unrestricted -Command "mkdir C:\\Sysmon; cd C:\\Sysmon; Invoke-WebRequest https://download.sysinternals.com/files/Sysmon.zip -OutFile Sysmon.zip; Expand-Archive Sysmon.zip; Invoke-WebRequest https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/sysmonconfig-export.xml -OutFile sysmonconfig.xml; C:\\Sysmon\\Sysmon\\Sysmon64.exe -i sysmonconfig.xml -accepteula"'
+    }
+  }
+}
 // Deploy Log Analytics Workspace
 resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   name: 'soc-lab-law'
@@ -179,5 +193,51 @@ resource vmExtension 'Microsoft.Compute/virtualMachines/extensions@2023-03-01' =
 settings: {
       workspaceId: logAnalytics.id
     }
+  }
+}
+
+resource sysmonDcr 'Microsoft.Insights/dataCollectionRules@2022-06-01' = {
+  name: 'sysmon-dcr'
+  location: location
+  properties: {
+    dataSources: {
+      windowsEventLogs: [
+        {
+          name: 'sysmon-events'
+          streams: [
+            'Microsoft-Event'
+          ]
+          xPathQueries: [
+            'Microsoft-Windows-Sysmon/Operational!*'
+          ]
+        }
+      ]
+    }
+    destinations: {
+      logAnalytics: [
+        {
+          name: 'law'
+          workspaceResourceId: logAnalyticsWorkspace.id
+        }
+      ]
+    }
+    dataFlows: [
+      {
+        streams: [
+          'Microsoft-Event'
+        ]
+        destinations: [
+          'law'
+        ]
+      }
+    ]
+  }
+}
+
+resource dcrAssociation 'Microsoft.Insights/dataCollectionRuleAssociations@2022-06-01' = {
+  name: 'sysmon-dcr-association'
+  scope: vm
+  properties: {
+    dataCollectionRuleId: sysmonDcr.id
   }
 }
