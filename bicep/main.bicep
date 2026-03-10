@@ -136,6 +136,8 @@ resource vm 'Microsoft.Compute/virtualMachines@2023-03-01' = {
   }
 }
 
+//Creates a folder C:\Sysmon on the VM, downloads Sysmon, downloads the SwiftOnSecurity Sysmon config, installs Sysmon as a Windows service, then applies the configuration//
+
 resource installSysmon 'Microsoft.Compute/virtualMachines/extensions@2023-03-01' = {
   name: 'install-sysmon'
   parent: vm
