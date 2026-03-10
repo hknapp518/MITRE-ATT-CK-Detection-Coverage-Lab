@@ -219,7 +219,7 @@ resource sysmonDcr 'Microsoft.Insights/dataCollectionRules@2022-06-01' = {
       logAnalytics: [
         {
           name: 'law'
-          workspaceResourceId: logAnalyticsWorkspace.id
+          workspaceResourceId: logAnalytics.id
         }
       ]
     }
