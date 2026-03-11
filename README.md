@@ -1,4 +1,4 @@
-# MITRE ATT&CK Detection Coverage Lab
+# Detection Engineering Lab: MITRE ATT&CK Coverage Analysis
 
 ## Overview
 
