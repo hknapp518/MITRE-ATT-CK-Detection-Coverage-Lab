@@ -4,7 +4,7 @@
 
 This project demonstrates a detection engineering workflow built on cloud infrastructure using Infrastructure as Code (IaC). The lab deploys a simulated enterprise environment in Azure where attacker techniques are executed and telemetry is collected for detection development.
 
-The environment is deployed using Azure Bicep, which provisions a Windows server instrumented with **Sysmon** to capture detailed endpoint telemetry. Logs are collected using the Azure Monitor Agent and Data Collection Rules, and streamed into Microsoft Sentinel and Splunk for security monitoring and detection development.
+The environment is deployed using Azure Bicep, which provisions a Windows server instrumented with Sysmon to capture detailed endpoint telemetry. Logs are collected using the Azure Monitor Agent and Data Collection Rules, and streamed into Microsoft Sentinel and Splunk for security monitoring and detection development.
 
 Attacker behaviors are simulated using Atomic Red Team from a Kali Linux host. Detection rules are developed using SIEM queries and mapped to the MITRE ATT&CK framework to evaluate detection coverage across common adversary techniques such as credential access, lateral movement, and command-and-control activity.
 
